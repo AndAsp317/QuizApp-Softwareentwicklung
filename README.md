@@ -3,13 +3,8 @@
 Eine moderne, mehrsprachige Restaurant‑Website mit **Online‑Bestellung**, **Warenkorb**, **Abholung/Lieferung** (Mindestbestellwert, Liefergebühr & Abhol‑Rabatt), optionalem **PayPal‑Checkout**, **Dark Mode**, **SEO (Schema.org/JSON‑LD)** und **Barrierefreiheit (ARIA)**.  
 Technologien: **HTML5 · CSS3 · Vanilla JS**
 
-> Live‑Demo (GitHub Pages): _wird nach Deployment automatisch hier verlinkt_
-
-![Screenshot](./assets/preview.png)\n
 ### Screenshot (mit Daten)
-![Screenshot mit Daten](./assets/preview.png)
-
-<sub>_Tipp:_ Lege einen Screenshot unter `assets/screenshot.png` ab (oder passe den Pfad an).</sub>
+![Screenshot mit Daten](preview.png)
 
 ---
 
