@@ -1,110 +1,82 @@
-# Ristorante Napoli – Restaurant‑Website (DE/EN/IT) mit Online‑Bestellung & Lieferservice
+# Das Agile Softwareentwicklungs-Quiz
 
-Eine moderne, mehrsprachige Restaurant‑Website mit **Online‑Bestellung**, **Warenkorb**, **Abholung/Lieferung** (Mindestbestellwert, Liefergebühr & Abhol‑Rabatt), optionalem **PayPal‑Checkout**, **Dark Mode**, **SEO (Schema.org/JSON‑LD)** und **Barrierefreiheit (ARIA)**.  
-Technologien: **HTML5 · CSS3 · Vanilla JS**
+Ein leichtgewichtiges, responsives **Agile-Quiz** (Deutsch) mit **Timer**, **Punktestand**, **Fortschrittsbalken**, **Dark‑Mode** und **zufälliger Fragenauswahl** – alles in **einer HTML‑Datei** (kein Build, keine Abhängigkeiten).
 
-### Screenshot (mit Daten)
-![Screenshot mit Daten](preview.png)
 
 ---
 
-## Features
-- **Online‑Bestellung** mit Warenkorb, Abhol‑/Liefer‑Umschalter, Abhol‑Rabatt (10 %), Liefergebühr (3,50 €) und Mindestbestellwert (15 €)
-- **Mehrsprachig (DE/EN/IT)** via Language‑Switcher, Auswahl wird im `localStorage` gespeichert
-- **Responsives UI** (mobil‑freundlich), **Dark‑Mode**, **tastatur‑bedienbar** und ARIA‑Labels
-- **PayPal‑Integration** (optional; Sandbox eingebunden – Client‑ID einfach austauschen)
-- **SEO**: Meta‑Tags & [Schema.org](https://schema.org) **Restaurant** via JSON‑LD
-- Saubere **Code‑Struktur** (HTML/CSS/JS getrennt), leicht anpassbar
+## ✨ Features
+- **10 Fragen** zu Agilen Grundlagen (Scrum, PO, SM, MVP etc.) – leicht erweiterbar im `questions`‑Array
+- **Zufällige Fragenauswahl** ohne Wiederholung je Durchlauf
+- **15‑Sekunden Timer** pro Frage + Auto‑Auswahl bei Timeout
+- **Sichtbares Feedback** (richtig/falsch), **Score** und **Restart**
+- **Fortschrittsbalken** + „Frage X von Y“
+- **Dark‑Mode** per Button (persistiert nicht – sofort umschaltbar)
+- **Responsive** CSS für Tablet/Phone
 
 ---
 
-## Quickstart (lokal)
-1. Repo klonen oder ZIP entpacken
-2. `index.html` im Browser öffnen  
-   _Optional: mit VS Code „Live Server“ verwenden_
-3. Sprache oben rechts umschalten (DE/EN/IT)
+## 🧠 So funktioniert’s (Kurzüberblick)
+- Fragen werden aus dem `questions`‑Array zufällig gezogen und nach dem Stellen entfernt (keine Duplikate).
+- Die Antworten sind **Buttons**; nach Klick werden alle deaktiviert, die korrekte Antwort wird markiert.
+- Ein 15s‑Timer läuft pro Frage. Läuft er ab, wird automatisch die richtige Antwort markiert.
+- **Score** zählt korrekte Antworten. Am Ende erscheint „Quiz beendet“ mit Ergebnis und „Nochmal spielen“.
+- Ein **Fortschrittsbalken** visualisiert den Anteil bereits gestellter Fragen.
+- Ein **Dark‑Mode‑Toggle** wechselt Styles in `body.dark`.
 
 ---
 
-## Konfiguration
-| Bereich | Datei | Was anpassen? |
+## Quickstart
+1. Repo klonen oder ZIP laden
+2. `index.html` doppelklicken (oder im Editor mit *Live Server* öffnen)
+3. **Spielen!** Optional: Dark‑Mode testen (Button oben links)
+
+
+### Screenshot: Ausgewählte/angeklickte Antwort
+
+![Quiz-App – ausgewählte Antwort](preview.png)
+
+
+---
+
+## Anpassen
+| Was? | Wo? | Wie? |
 |---|---|---|
-| Bestell‑E‑Mail | `script.js` | Im `placeOrder()` die Adresse `bestellung@example.com` durch eure Restaurant‑E‑Mail ersetzen |
-| PayPal | `index.html` | Script‑Tag mit eurer **Client‑ID** ersetzen (`client-id=...`) |
-| Menü | `script.js` | `MENU`‑Array (Name, Beschreibung, Preis) bearbeiten/erweitern |
-| Farben/Branding | `style.css` | Farbvariablen (`--primary`, Trikolore) & Styles anpassen |
-| Adresse/Map | `index.html` | Google‑Maps‑Embed oder Platzhalter ersetzen |
-| Öffnungszeiten | `index.html` & JSON‑LD | Zeiten im Abschnitt **Öffnungszeiten** und im Schema‑Block anpassen |
+| **Fragen ergänzen** | `index.html` → `const questions = [...]` | Neue Objekte `{ question, answers:[{text, correct}] }` anhängen |
+| **Anzahl Fragen** | `maxQuestions` | Standard `10` – anpassen (≤ Anzahl verfügbarer Fragen) |
+| **Timer‑Dauer** | `timeLeft`/`startTimer()` | Standard `15` Sekunden – Wert erhöhen/vermindern |
+| **Dark‑Mode‑Texte** | Button‑Beschriftung im Toggle‑Handler | Labels „🌙 Dark Mode“ / „☀️ Light Mode“ anpassen |
+| **Farben/Design** | `<style>` | Gradienten/Farben (z. B. #3498db) ändern, eigene Fonts etc. |
 
-**Bestelllogik:**  
-- Mindestbestellwert Lieferung: **15,00 €**  
-- Liefergebühr: **3,50 €**, entfällt ab **35,00 €**  
-- Abholung: **10 % Rabatt** auf die Zwischensumme
-
-> Diese Werte sind in `script.js` (Konstanten `MIN_DELIVERY`, `DELIVERY_FEE`, `PICKUP_DISCOUNT`) hinterlegt.
+> Tipp: Wenn du das Projekt modularisieren willst, extrahiere CSS/JS in `style.css`/`app.js` und binde sie per `<link>`/`<script>` ein.
 
 ---
 
-## Internationalisierung (i18n)
-- Sprach‑Strings in `script.js` unter `i18n.de`, `i18n.en`, `i18n.it`
-- UI‑Texte im HTML sind mit `data-i18n`/`data-i18n-placeholder` markiert
-- Sprache wird im `localStorage` persistiert (`lang`)
-
-**Weitere Sprache hinzufügen:** Objekt `i18n.xx` ergänzen, `langSelect`‑Option einfügen, fertig.
-
----
-
-## Zugänglichkeit & SEO
-- Fokus‑Styles, ARIA‑Attribute, semantisches HTML
-- Strukturierte Daten (**JSON‑LD** Restaurant), Meta‑Description, Open‑Graph
-
----
-
-## Struktur
+## Projektstruktur
 ```
 .
-├── index.html      # Seite: Hero, Menü, Lieferservice, Öffnungszeiten, Reservierung, Kontakt
-├── style.css       # Styles (inkl. Trikolore‑Akzente, Dark Mode, Responsiveness)
-├── script.js       # i18n, Menü‑Daten, Warenkorb/Checkout, Formular‑Logik, PayPal
-└── assets/
-    └── screenshot.png   # Screenshot für README (optional)
+└── index.html   # Enthält Markup, Styles und Script (keine externen Abhängigkeiten)
 ```
 
 ---
 
 ## Deployment (GitHub Pages)
 1. **Settings → Pages**  
-2. **Source:** _Deploy from a branch_ → **Branch:** `main` → **Folder:** `/ (root)` → **Save`**
-3. Wartet 1–2 Minuten → Public URL erscheint oben.  
-4. Diese URL hier im README bei **Live‑Demo** eintragen.
-
----
-
-## Test‑Checkliste
-- [ ] Bestellung mit **Abholung** und **Lieferung** durchspielen  
-- [ ] Mindestbestellwert/ Liefergebühr korrekt?  
-- [ ] Sprache umschalten (DE/EN/IT) – Layout & Texte ok?  
-- [ ] Dark‑/Light‑Mode prüfen  
-- [ ] PayPal‑Sandbox Checkout (optional)
-
----
-
-## Stack & Tools
-**HTML5**, **CSS3**, **Vanilla JS**, **PayPal JS SDK**, **Schema.org/JSON‑LD**
-
----
-
-## Lizenz
-**MIT** – gerne anpassen, falls ihr eine andere Lizenz wünscht.
-
----
-
-## Credits
-Design & Code: André Asprion (Portfolio‑Projekt – „Ristorante Napoli“).  
-Icons/Emoji: System/Emoji. PayPal‑Logo/Marke © PayPal.
+2. **Source:** *Deploy from a branch* → **Branch:** `main` → **Folder:** `/ (root)` → **Save**  
+3. Warte kurz; die öffentliche URL erscheint oben – hier im README bei der Demo verlinken.
 
 ---
 
 ## Hinweise
-- Für reale Zahlungen **PayPal‑Client‑ID** ersetzen und rechtliche Seiten ergänzen (**Impressum**, **Datenschutz**).  
-- E‑Mail‑Workflow basiert auf `mailto:` – für professionelle Workflows empfiehlt sich ein kleines Backend (Mailservice/Webhook).
+- Buttons statt Links → gut bedienbar per Tastatur
+- Kontraste im Dark‑Mode beachtet; passe ggf. Farben für AA/AAA an
+
+---
+
+## Tech‑Stack
+**HTML5**, **CSS3**, **Vanilla JavaScript** – keine Frameworks, kein Buildsystem
+
+---
+
+## Lizenz
+MIT (optional; anpassen nach Bedarf)
